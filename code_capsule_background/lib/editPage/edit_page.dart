@@ -3,31 +3,21 @@ import '../config/index.dart';
 import '../globleWidgets/globleNav/nav_globle.dart';
 //import './model/viewModel/nav_viewmodel.dart';
 
-
 class EditPage extends StatefulWidget {
-  final int initIndex = 0;
+  final int initIndex = 1;
+  final String headImg;
 
-
-  const EditPage({ Key? key }) : super(key: key);
+  const EditPage({Key? key, required this.headImg}) : super(key: key);
 
   @override
   State<EditPage> createState() => _EditPageState();
 }
 
 class _EditPageState extends State<EditPage> {
-
-  String headImg = '';
-
   @override
   void initState() {
-    // TODO: implement initState
-    print('dd');
     super.initState();
-    //NavViewModel navViewModel = NavViewModel();
-    //navViewModel.refresh();
-    //headImg = navViewModel.headImg;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,6 @@ class _EditPageState extends State<EditPage> {
       body: Container(
           constraints: const BoxConstraints(),
           alignment: Alignment.center,
-          //width: 900,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -45,7 +34,20 @@ class _EditPageState extends State<EditPage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GlobleNav(headImg: headImg, initIndex: widget.initIndex)
+                  GlobleNav(
+                      headImg: widget.headImg, initIndex: widget.initIndex),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          
+                        ],
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

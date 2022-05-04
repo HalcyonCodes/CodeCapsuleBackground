@@ -11,23 +11,19 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print('ddd');
+    //print('ddd');
     final router = FluroRouter();
     Routes.configureRotes(router);
     Application.router = router;
     return MaterialApp(
-      title: 'Code Capsule Background',
-      //theme: ThemeData(),
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: Application.router!.generator,
-      onGenerateInitialRoutes: Application.router!.generatorInitail
-    );
+        title: 'Code Capsule Background',
+        //theme: ThemeData(),
+        //home: HomePage(),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: Application.router!.generator,
+        onGenerateInitialRoutes: Application.router!.generatorInitail);
   }
 }
-
-

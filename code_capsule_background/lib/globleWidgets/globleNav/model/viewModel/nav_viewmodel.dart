@@ -42,13 +42,13 @@ class NavViewModel{
         return response!.statusCode!;
       } else {
       //currentArticleId = '';
-        headImg = '';
+        headImg = ''; //改为默认头像地址
         return response!.statusCode!;
 
       }
 
     }catch(e){
-      headImg = '';
+      headImg = ''; //改为默认头像地址
       return 404;
     }
 
