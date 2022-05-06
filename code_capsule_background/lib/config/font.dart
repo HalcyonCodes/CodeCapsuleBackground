@@ -5,10 +5,10 @@ import './color.dart';
 class KFont{
   //每个功能模块中的标题头的字体
   static TextStyle functionStyle = const TextStyle(
-    fontFamily: 'PingFangHK',
+    fontFamily: 'pingfang',
     fontSize: 18,
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    fontWeight: FontWeight.normal,
     decoration: TextDecoration.none,
     height: 25/18
   );
