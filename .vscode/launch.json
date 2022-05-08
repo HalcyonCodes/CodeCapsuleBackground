@@ -1,0 +1,87 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "code_capsule_background",
+            "cwd": "code_capsule_background",
+            "request": "launch",
+            "type": "dart",
+            "args":[
+                //"--web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.jsdelivr.net/npm/canvaskit-wasm@0.34.0/bin/ --release",
+                //"--web-renderer canvaskit",
+                //"--dart-define=FLUTTER_WEB_CANVASKIT_URL=web/assets/canvaskit/",
+                //"--release",
+            ]
+        },
+        {
+            "name": "code_capsule_background (profile mode)",
+            "cwd": "code_capsule_background",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args":[
+                //"--web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.jsdelivr.net/npm/canvaskit-wasm@0.34.0/bin/ --release"
+                //"--web-renderer canvaskit",
+                //"--dart-define=FLUTTER_WEB_CANVASKIT_URL=web/assets/canvaskit/",
+                //"--release",
+            ]
+        },
+        {
+            "name": "code_capsule_background (release mode)",
+            "cwd": "code_capsule_background",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args":[
+               //"--web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.jsdelivr.net/npm/canvaskit-wasm@0.34.0/bin/ --release"
+               //"--web-renderer canvaskit",
+               //"--dart-define=FLUTTER_WEB_CANVASKIT_URL=web/assets/canvaskit/",
+               //"--release",
+            ]
+        },
+        {
+            "name": "fluro",
+            "cwd": "fluro",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fluro (profile mode)",
+            "cwd": "fluro",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fluro (release mode)",
+            "cwd": "fluro",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "example",
+            "cwd": "fluro\\example",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "example (profile mode)",
+            "cwd": "fluro\\example",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "example (release mode)",
+            "cwd": "fluro\\example",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

@@ -19,16 +19,19 @@ class AnimatedLine extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build');
+
     return Positioned(
         top: initY,
-        left: firstX + (thiredX - firstX) * pageController.page!,
+        left: (thiredX - firstX) * (pageController.page!/2),
         child: Container(
           height: 6,
           width: 40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
               color: KColor.primaryColor),
-        ));
+        ),
+    );
   }
+
+
 }

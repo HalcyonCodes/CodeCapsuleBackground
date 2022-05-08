@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../config/index.dart';
 import '../globleWidgets/globleNav/nav_globle.dart';
-import './util/util_editpage.dart';
-import './components/functionTitle/function_title_edit_page.dart';
-import './components/editArea/editarea_page_edit_page.dart';
+import 'util/page_util.dart';
+import 'components/functionTitle/function_title.dart';
+//import './components/editorArea/editor_area_pageview.dart';
+import './components/editorArea/Future_editor_area_pageview.dart';
+import './model/viewModel/editor_page_viewModel.dart';
 
 class EditPage extends StatefulWidget {
   final int initIndex = 1;
@@ -17,11 +19,13 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   EditPageUtil? pageUtil;
+  EditorPageViewModel? viewModel;
   PageController? pageController;
 
   @override
   void initState() {
     super.initState();
+    viewModel = EditorPageViewModel();
     pageUtil = EditPageUtil();
     pageController = PageController();
     //--注册
@@ -57,9 +61,7 @@ class _EditPageState extends State<EditPage> {
                         const SizedBox(
                           height: 24,
                         ),
-                        EditAreaPage(
-                          pageUtil: pageUtil!,
-                        ),
+                        EditorAreaFuture(viewModel: viewModel!, pageUtil: pageUtil!)
                       ],
                     ),
                   )
