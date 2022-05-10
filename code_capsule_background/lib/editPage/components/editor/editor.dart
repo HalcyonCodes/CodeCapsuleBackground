@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../../config/index.dart';
+import '../../model/viewModel/article_viewmodel.dart';
+import '../../util/page_util.dart';
 
 class Editor extends StatefulWidget {
-  const Editor({Key? key}) : super(key: key);
+  final ArticleViewModel articleViewModel;
+  const Editor({Key? key, required this.articleViewModel}) : super(key: key);
 
   @override
   State<Editor> createState() => _EditorState();
 }
 
 class _EditorState extends State<Editor> {
-   @override
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

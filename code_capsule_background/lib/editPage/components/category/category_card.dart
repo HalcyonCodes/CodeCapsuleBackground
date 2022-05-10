@@ -1,21 +1,50 @@
 import 'package:flutter/material.dart';
 import '../../../config/index.dart';
-import '../../model/viewModel/editor_page_viewModel.dart';
+import '../../util/page_util.dart';
+import '../../model/viewModel/article_viewmodel.dart';
+import '../../model/viewModel/category_viewmodel.dart';
+import '../../model/viewModel/tag_viewmodel.dart';
 
-class CategoryTitleCard extends StatelessWidget {
+class CategoryCard extends StatefulWidget {
   final String id;
   final String title;
   final String update;
   final String count;
-  final EditorPageViewModel viewModel;
-  const CategoryTitleCard(
+  final CategoryViewModel viewModel;
+  final EditPageUtil pageUtil;
+  const CategoryCard(
       {Key? key,
       required this.viewModel,
       required this.id,
       required this.title,
       required this.update,
-      required this.count})
+      required this.count,
+      required this.pageUtil})
       : super(key: key);
+
+  @override
+  State<CategoryCard> createState() => _CategoryCardState();
+}
+
+class _CategoryCardState extends State<CategoryCard> {
+  bool? _isSelect;
+  bool? get isSelect => _isSelect;
+
+  void setIsSelect(bool i) {
+    _isSelect = i;
+  }
+
+  void refreshUi() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setIsSelect(false);
+    widget.pageUtil.addFuncListSelectCard(setIsSelect);
+    widget.pageUtil.addFuncListRefreshCategoryCard(refreshUi);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +55,20 @@ class CategoryTitleCard extends StatelessWidget {
         onTap: onClick,
         child: Container(
           height: 81,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          //width: 451 - 4,
+          padding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 8), //24/12
           //margin: const EdgeInsets.only(bottom: 24),
           decoration: BoxDecoration(
-            color: KColor.containColor,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [KShadow.shadow],
-          ),
+              color: KColor.containColor,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [KShadow.shadow],
+              border: isSelect!
+                  ? Border.all(width: 2, color: KColor.primaryColor)
+                  : Border.all(
+                      width: 2,
+                      color: Colors.black.withOpacity(0.0),
+                    )),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,12 +92,12 @@ class CategoryTitleCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          widget.title,
                           style: KFont.categoryTitleStyle,
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '共 ' + count + ' 篇',
+                          '共 ' + widget.count + ' 篇',
                           style: KFont.categoryProfilesStyle,
                         ),
                       ],
@@ -70,7 +106,7 @@ class CategoryTitleCard extends StatelessWidget {
                       child: SizedBox(),
                     ),
                     //Text('最后更新时间：',style: KFont.categoryProfilesStyle,),
-                    Text('最后更新时间：' + (update),
+                    Text('最后更新时间：' + (widget.update),
                         style: KFont.categoryProfilesStyle),
                   ],
                 ),
@@ -83,6 +119,26 @@ class CategoryTitleCard extends StatelessWidget {
   }
 
   void onClick() {
-    //viewModel.onCardClick(id);
+    if (isSelect == true) {
+      for (int i = 0;
+          i <= widget.pageUtil.funcListSetIsSelectCard.length - 1;
+          i++) {
+        widget.pageUtil.funcListSetIsSelectCard[i]!(false);
+        widget.pageUtil.funcListRefreshCategoryCard[i]!();
+      }
+      widget.pageUtil.setCategoryId(null);
+    } else {
+      for (int i = 0;
+          i <= widget.pageUtil.funcListSetIsSelectCard.length - 1;
+          i++) {
+        widget.pageUtil.funcListSetIsSelectCard[i]!(false);
+        widget.pageUtil.funcListRefreshCategoryCard[i]!();
+      }
+      setIsSelect(true);
+      widget.pageUtil.setCategoryId(int.tryParse(widget.id)!);
+    }
+
+    
+    refreshUi();
   }
 }

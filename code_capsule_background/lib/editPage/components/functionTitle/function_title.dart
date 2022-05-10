@@ -176,18 +176,18 @@ class _FunctionTitleState extends State<FunctionTitle> {
               ),
               const Expanded(child: SizedBox()),
               FunctionButton(
-                  btnString: KString.editBackBtnTitle, onTagFunc: () {}),
+                  btnString: KString.editBackBtnTitle, onTapFunc: () {}),
               const SizedBox(
                 width: 24,
               ),
               FunctionButton(
-                  btnString: KString.editDraftBtnTitle, onTagFunc: () {}),
+                  btnString: KString.editDraftBtnTitle, onTapFunc: () {}),
               const SizedBox(
                 width: 24,
               ),
               FunctionButton(
                 btnString: KString.editPushBtnTitle,
-                onTagFunc: () {},
+                onTapFunc: () {},
               )
             ],
           ),

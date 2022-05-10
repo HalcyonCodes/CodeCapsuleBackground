@@ -3,9 +3,10 @@ import '../config/index.dart';
 import '../globleWidgets/globleNav/nav_globle.dart';
 import 'util/page_util.dart';
 import 'components/functionTitle/function_title.dart';
-//import './components/editorArea/editor_area_pageview.dart';
-import './components/editorArea/Future_editor_area_pageview.dart';
-import './model/viewModel/editor_page_viewModel.dart';
+import './components/editorArea/editor_area_pageview.dart';
+import './model/viewModel/article_viewmodel.dart';
+import './model/viewModel/category_viewmodel.dart';
+import './model/viewModel/tag_viewmodel.dart';
 
 class EditPage extends StatefulWidget {
   final int initIndex = 1;
@@ -19,19 +20,25 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   EditPageUtil? pageUtil;
-  EditorPageViewModel? viewModel;
+  ArticleViewModel? articleViewModel;
+  CategoryViewModel? categoryViewModel;
+  TagViewModel? tagViewModel;
+
   PageController? pageController;
 
   @override
   void initState() {
     super.initState();
-    viewModel = EditorPageViewModel();
+    //viewModel = EditorPageViewModel();
+    articleViewModel = ArticleViewModel();
+    categoryViewModel = CategoryViewModel();
+    tagViewModel = TagViewModel();
+    
     pageUtil = EditPageUtil();
     pageController = PageController();
+
     //--注册
-     pageUtil!.setPageController(pageController!);
- 
-    
+    pageUtil!.setPageController(pageController!);
   }
 
   @override
@@ -61,7 +68,11 @@ class _EditPageState extends State<EditPage> {
                         const SizedBox(
                           height: 24,
                         ),
-                        EditorAreaFuture(viewModel: viewModel!, pageUtil: pageUtil!)
+                        //EditorArea(pageUtil: pageUtil!)
+                        EditorAreaPageView(pageUtil: pageUtil!, 
+                          articleViewModel: articleViewModel!, 
+                          categoryViewModel: categoryViewModel!, 
+                          tagViewModel: tagViewModel!)
                       ],
                     ),
                   )

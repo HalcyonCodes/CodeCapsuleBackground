@@ -3,13 +3,13 @@ import '../../../config/index.dart';
 
 class FunctionButton extends StatelessWidget {
   final String btnString;
-  final Function onTapFunc;
+  final Function() onTapFunc;
   const FunctionButton({Key? key, required this.btnString, required this.onTapFunc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: onTapFunc,
       borderRadius: BorderRadius.circular(16),
       child: Container(
         width: 84,

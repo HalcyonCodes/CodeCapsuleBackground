@@ -1,21 +1,25 @@
-import 'package:flutter/material.dart';
-import '../../model/viewModel/editor_page_viewModel.dart';
-import '../../util/page_util.dart';
-import './editor_area_pageview.dart';
-import '../../../config/index.dart';
 
-class EditorAreaFuture extends StatefulWidget {
-  final EditorPageViewModel viewModel;
+import './list_category_card.dart';
+import 'package:flutter/material.dart';
+import '../../util/page_util.dart';
+import '../../../config/index.dart';
+import '../../model/viewModel/category_viewmodel.dart';
+
+//import '../../components/category/list_category_card.dart';
+//import '../category/category_card.dart';
+
+class CategoryCardListFuture extends StatefulWidget {
+  final CategoryViewModel categoryViewModel;
   final EditPageUtil pageUtil;
-  const EditorAreaFuture(
-      {Key? key, required this.viewModel, required this.pageUtil})
+  const CategoryCardListFuture(
+      {Key? key, required this.categoryViewModel, required this.pageUtil})
       : super(key: key);
 
   @override
-  State<EditorAreaFuture> createState() => _EditorAreaFutureState();
+  State<CategoryCardListFuture> createState() => _CategoryCardListFutureState();
 }
 
-class _EditorAreaFutureState extends State<EditorAreaFuture> {
+class _CategoryCardListFutureState extends State<CategoryCardListFuture> {
   Widget refreshButton() {
     return InkWell(
       onTap: () {
@@ -42,12 +46,12 @@ class _EditorAreaFutureState extends State<EditorAreaFuture> {
   Widget build(BuildContext context) {
     int a;
     return FutureBuilder<int>(
-        future: widget.viewModel.refresh(),
+        future: widget.categoryViewModel.refresh(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
               return Container(
-                width: 1920 - 24 - 112 - 24 - 24,
+                width: 451,
                 height: MediaQuery.of(context).size.height - 24 - 55 - 24 - 24,
                 alignment: Alignment.center,
                 child: refreshButton(),
@@ -55,7 +59,7 @@ class _EditorAreaFutureState extends State<EditorAreaFuture> {
 
             case ConnectionState.waiting:
               return Container(
-                width: 1920 - 24 - 112 - 24 - 24,
+                width: 451,
                 height: MediaQuery.of(context).size.height - 24 - 55 - 24 - 24,
                 alignment: Alignment.center,
                 child: Text(
@@ -66,7 +70,7 @@ class _EditorAreaFutureState extends State<EditorAreaFuture> {
 
             case ConnectionState.active:
               return Container(
-                width: 1920 - 24 - 112 - 24 - 24,
+                width: 451,
                 height: MediaQuery.of(context).size.height - 24 - 55 - 24 - 24,
                 alignment: Alignment.center,
               );
@@ -74,15 +78,16 @@ class _EditorAreaFutureState extends State<EditorAreaFuture> {
             case ConnectionState.done:
               if (snapshot.hasError) {
                 return Container(
-                  width: 1920 - 24 - 112 - 24 - 24,
+                  width: 451,
                   height:
                       MediaQuery.of(context).size.height - 24 - 55 - 24 - 24,
                   alignment: Alignment.center,
                   child: refreshButton(),
                 );
               } else {
-                return EditorAreaPageView(
-                    pageUtil: widget.pageUtil, viewModel: widget.viewModel);
+                return CategoryCardList(
+                    categoryViewModel: widget.categoryViewModel,
+                    pageUtil: widget.pageUtil);
               }
           }
         });

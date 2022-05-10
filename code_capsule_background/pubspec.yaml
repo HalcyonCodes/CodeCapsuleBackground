@@ -66,6 +66,12 @@ flutter:
     - svg/首页.svg
     - svg/随机用户.svg
     - svg/应用.svg
+    - svg/跟踪目标设置.svg
+    - svg/加.svg
+    - svg/删除.svg
+    - svg/向右.svg
+    - svg/向左.svg
+    - svg/设置.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
