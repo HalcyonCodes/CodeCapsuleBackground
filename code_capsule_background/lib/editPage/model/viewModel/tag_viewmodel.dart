@@ -1,9 +1,9 @@
 import 'dart:html';
-import '../fromJsonModel/tag_from_json_model.dart';
+import '../fromJsonModel/tag_from_json_model.dart' as frModel;
 import 'package:dio/dio.dart';
 //import '../data/editor_page_data.dart' as tData;
+import './tag.dart';
 import '../data/tag_data.dart' as tData;
-
 class TagViewModel {
   late List<Tag> articleTags;
 
@@ -18,7 +18,7 @@ class TagViewModel {
     if (response.statusCode == HttpStatus.ok) {
       var data = tData.data;
       //EditorModel fromJsonModel = EditorModel.fromJson(data);
-      TagModel fromJsonModel = TagModel.fromJson(data);
+      frModel.TagModel fromJsonModel = frModel.TagModel.fromJson(data);
 
       articleTags = [];
       for (var e in fromJsonModel.data.tags) {
@@ -33,27 +33,3 @@ class TagViewModel {
   }
 }
 
-class Category {
-  late String categoryId;
-  late String title;
-  late String update;
-  late String count;
-
-  Category(
-      {required this.categoryId,
-      required this.title,
-      required this.update,
-      required this.count});
-}
-
-class Tag {
-  late String tagId;
-  late String title;
-  late String date;
-
-  Tag({
-    required this.tagId,
-    required this.title,
-    required this.date,
-  });
-}

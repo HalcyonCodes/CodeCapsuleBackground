@@ -27,17 +27,38 @@ class KString {
   static String toolInputInitTitle = '请输入';
 
   //分类页工具栏编辑分类标题
-  static String toolEditCategoryTitle = '编辑标题';
+  static String toolEditCategoryTitle = '编辑分类';
 
   //分类页工具栏删除分类标题
-  static String toolDelectCategoryTitle = '删除标题';
+  static String toolDelectCategoryTitle = '删除分类';
 
   //分类页工具栏添加分类标题
-  static String toolAddCategoryTitle = '添加标题';
+  static String toolAddCategoryTitle = '添加分类';
 
   //工具栏确定按钮标题
   static String toolButtonDetermineTitle = '确定';
 
   //工具栏取消按钮标题
   static String toolButtonCancelTitle = '取消';
+
+  //待添加分类标题
+  static String addCategoryTitle = '待添加分类';
+
+  //添加成功
+  static String addSuccessTitle = '添加成功';
+
+  //添加失败
+  static String addFailTitle = '添加失败';
+
+  //修改成功
+  static String updateSuccessTitle = '修改成功';
+
+  //修改失败
+  static String updateFailTitle = '修改失败';
+
+  //删除成功
+  static String delFailTitle = '删除失败';
+
+  //删除失败
+  static String delSucessTitle = '删除成功';
 }

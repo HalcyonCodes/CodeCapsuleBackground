@@ -3,12 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../config/index.dart';
-import '../functionTitle/function_button.dart';
+import './button_tool_category_tool.dart';
+import '../../util/page_util.dart';
+import '../../model/viewModel/category_viewmodel.dart';
+import '../../model/viewModel/category.dart';
+import '../../../globleWidgets/tip/animated_tip.dart';
 
 class Add extends StatelessWidget {
+  final EditPageUtil pageUtil;
+  final CategoryViewModel categoryViewModel;
   final TextEditingController editController = TextEditingController();
 
-  Add({Key? key}) : super(key: key);
+  Add({Key? key, required this.pageUtil, required this.categoryViewModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class Add extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 18,
+              width: 12,
             ),
             Text(
               KString.toolAddCategoryTitle,
@@ -68,7 +75,7 @@ class Add extends StatelessWidget {
           children: [
             Container(
               height: 26,
-              width: 396 - 18 - 12 - 12 - 18,
+              width: 396 - 12 - 12,
               alignment: Alignment.center,
               child: TextField(
                 controller: editController,
@@ -83,7 +90,7 @@ class Add extends StatelessWidget {
                 ],
                 maxLength: null,
                 //onChanged: (text){},
-                onSubmitted: (text) {},
+                //onSubmitted: (text) {},
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: KString.toolInputInitTitle,
@@ -105,14 +112,58 @@ class Add extends StatelessWidget {
         children: [
           const Expanded(child: SizedBox()),
           FunctionButton(
-              btnString: KString.toolButtonDetermineTitle, onTapFunc: () {}),
+              btnString: KString.toolButtonDetermineTitle, onTapFunc: commit),
           const SizedBox(
             width: 24,
           ),
           FunctionButton(
-              btnString: KString.toolButtonCancelTitle, onTapFunc: () {}),
+              btnString: KString.toolButtonCancelTitle, onTapFunc: cancel),
         ],
       )
     ]);
   }
+
+  void commit() async {
+    //向服务器提交添加分类并刷新
+    Map<String, String> postData = {};
+    postData['title'] = editController.text;
+    try {
+      await categoryViewModel.addCategory(postData);
+    } catch (e) {}
+  }
+
+  void cancel() {
+    pageUtil.setIsAdd!(false);
+    pageUtil.setIsEdit!(false);
+    pageUtil.setIsDel!(false);
+    pageUtil.refreshTool!();
+  }
+
+  void popTip(String tipString) {
+    //return
+    Widget overlayEntry = AnimatedTip(tipString: tipString);
+  }
+
+  /*if (b) {
+                RenderBox rBox =
+                    gKey.currentContext!.findRenderObject() as RenderBox;
+                Offset offset = rBox.localToGlobal(Offset.zero);
+                overlayEntry = OverlayEntry(builder: (constext) {
+                  String date = year + ' 年 ' + month + ' 月 ' + day + ' 日 ';
+                  return Positioned(
+                    top: offset.dy + 7 +7,
+                    left: offset.dx + 7 + 7,
+                    child: pupContain(date, count),
+                  );
+                });
+                Overlay.of(context)!.insert(overlayEntry!);
+              }
+              if (!b) {
+                if (overlayEntry != null) {
+                  overlayEntry!.remove();
+                  //overlayEntry!.dispose();
+                  overlayEntry = null;
+                }
+              }*/
+
 }

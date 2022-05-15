@@ -72,6 +72,8 @@ flutter:
     - svg/向右.svg
     - svg/向左.svg
     - svg/设置.svg
+    - svg/全网竞价报表.svg
+    - svg/减.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

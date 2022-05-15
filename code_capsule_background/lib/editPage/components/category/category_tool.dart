@@ -1,15 +1,22 @@
 import 'package:code_capsule_background/config/index.dart';
+import 'package:code_capsule_background/editPage/model/viewModel/article_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../util/page_util.dart';
 import '../../model/viewModel/category_viewmodel.dart';
 import './edit_tool_category_tool.dart';
+import './add_tool_category_tool.dart';
+import './delect_tool_category_tool.dart';
 
 class CategoryTool extends StatefulWidget {
   final EditPageUtil pageUtil;
-  final CategoryViewModel viewModel;
+  final CategoryViewModel categoryViewModel;
+  final ArticleViewModel articleViewModel;
   const CategoryTool(
-      {Key? key, required this.pageUtil, required this.viewModel})
+      {Key? key,
+      required this.pageUtil,
+      required this.categoryViewModel,
+      required this.articleViewModel})
       : super(key: key);
 
   @override
@@ -17,7 +24,6 @@ class CategoryTool extends StatefulWidget {
 }
 
 class _CategoryToolState extends State<CategoryTool> {
-  
   bool isInEditCategoryName = false;
 
   int? _selectCategoryId;
@@ -26,11 +32,34 @@ class _CategoryToolState extends State<CategoryTool> {
     _selectCategoryId = i;
   }
 
+  //指示器
+  bool _isAdd = false;
+  bool _isEdit = false;
+  bool _isDel = false;
+  bool get isAdd => _isAdd;
+  bool get isEdit => _isEdit;
+  bool get isDel => _isDel;
+  void setIsAdd(bool i) {
+    _isAdd = i;
+  }
+
+  void setIsEdit(bool i) {
+    _isEdit = i;
+  }
+
+  void setIsDel(bool i) {
+    _isDel = i;
+  }
+
   @override
   void initState() {
     super.initState();
     //selectCategoryId = widget.pageUtil.categoryId;
     setSelectCategoryId(widget.pageUtil.categoryId);
+    
+    widget.pageUtil.setFuncSetIsAdd(setIsAdd);
+    widget.pageUtil.setFuncSetIsDel(setIsDel);
+    widget.pageUtil.setFuncSetIsEdit(setIsEdit);
     widget.pageUtil.setRefreshTool(refreshUi);
   }
 
@@ -74,7 +103,7 @@ class _CategoryToolState extends State<CategoryTool> {
                   ),
                 ),
                 const SizedBox(
-                  width: 18,
+                  width: 12,
                 ),
                 Text(
                   KString.toolTitle,
@@ -199,33 +228,51 @@ class _CategoryToolState extends State<CategoryTool> {
           const SizedBox(
             height: 24,
           ),
-          //isInEditCategoryName ? categoryNameInput() : const SizedBox()
-          Edit(),
+          isEdit
+              ? Edit(
+                  pageUtil: widget.pageUtil,
+                )
+              : isAdd
+                  ? Add(
+                      pageUtil: widget.pageUtil,
+                    )
+                  : isDel
+                      ? Delect(
+                          pageUtil: widget.pageUtil,
+                        )
+                      : const SizedBox()
         ],
       ),
     );
   }
 
-
   //编辑分类名称
-  void edit(){
-
+  void edit() {
+    setIsAdd(false);
+    setIsDel(false);
+    setIsEdit(true);
+    refreshUi();
   }
-  
+
   //添加分类
-  void addCategory(){
-
+  void addCategory() {
+    setIsAdd(true);
+    setIsDel(false);
+    setIsEdit(false);
+    refreshUi();
   }
-  
+
   //删除分类
-  void delectCategory(){
-
+  void delectCategory() {
+    setIsAdd(false);
+    setIsEdit(false);
+    setIsDel(true);
+    refreshUi();
   }
-  
+
   //选择分类
-  void selectCategory(){
-
+  void selectCategory() {
+    widget.articleViewModel.setSelectCategory(widget.pageUtil.selectCategory);
+    widget.pageUtil.refreshCategorySelect!();
   }
-
-
 }

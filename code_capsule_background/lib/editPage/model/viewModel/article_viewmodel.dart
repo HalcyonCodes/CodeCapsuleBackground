@@ -1,24 +1,36 @@
 import 'dart:html';
-import '../fromJsonModel/article_from_json_model.dart';
+import '../fromJsonModel/article_from_json_model.dart' as frModel;
 import 'package:dio/dio.dart';
 //import '../data/editor_page_data.dart' as tData;
 import '../data/article_data.dart' as tData;
+import './category.dart';
+import './tag.dart';
 
 class ArticleViewModel {
   late String articleId;
   late String articleContent;
   late Category articleCategory;
-
   late String articleTitle;
   late String articleProfile;
   late String articleDate;
-
   late List<Tag> articleTags;
+
+  late Category? selectCategory;
+
+  bool _isFromInit = true;
+  bool get isFromInit => _isFromInit;
+  void setIsFromInit(bool i) {
+    _isFromInit = i;
+  }
 
   ArticleViewModel();
 
   Future<int> refresh() async {
     //后期修改请求数据
+    if (!isFromInit) {
+      //从左边选择然后刷新的
+      return 200;
+    }
     Response response;
 
     response = await Dio().get('http://localhost:4040/');
@@ -26,7 +38,7 @@ class ArticleViewModel {
     if (response.statusCode == HttpStatus.ok) {
       var data = tData.data;
       //EditorModel fromJsonModel = EditorModel.fromJson(data);
-      ArticleModel fromJsonModel = ArticleModel.fromJson(data);
+      frModel.ArticleModel fromJsonModel = frModel.ArticleModel.fromJson(data);
       articleId = fromJsonModel.data.article.articleId;
       articleContent = fromJsonModel.data.article.content;
       articleCategory = Category(
@@ -42,35 +54,17 @@ class ArticleViewModel {
         Tag tag = Tag(tagId: e.tagId, title: e.title, date: e.date);
         articleTags.add(tag);
       }
-
+      //if (isFromInit) {
+      setSelectCategory(articleCategory);
+      //}
+      setIsFromInit(true);
       return HttpStatus.ok;
     } else {
       throw Exception('http加载失败');
     }
   }
-}
 
-class Category {
-  late String categoryId;
-  late String title;
-  late String update;
-  late String count;
-
-  Category(
-      {required this.categoryId,
-      required this.title,
-      required this.update,
-      required this.count});
-}
-
-class Tag {
-  late String tagId;
-  late String title;
-  late String date;
-
-  Tag({
-    required this.tagId,
-    required this.title,
-    required this.date,
-  });
+  void setSelectCategory(Category? category) {
+    selectCategory = category;
+  }
 }

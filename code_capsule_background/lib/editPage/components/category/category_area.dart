@@ -1,10 +1,10 @@
 import 'package:code_capsule_background/editPage/components/category/list_category_card_future.dart';
 import 'package:flutter/material.dart';
-import './List_category_card.dart';
 import './category_tool.dart';
 import '../../util/page_util.dart';
 import '../../model/viewModel/category_viewmodel.dart';
 import '../../model/viewModel/article_viewmodel.dart';
+import './category_select_future.dart';
 
 class CategoryArea extends StatelessWidget {
   final CategoryViewModel categoryViewModel;
@@ -33,9 +33,17 @@ class CategoryArea extends StatelessWidget {
                   width: 24,
                 ),
                 CategoryTool(
-                  viewModel: categoryViewModel,
+                  categoryViewModel: categoryViewModel,
+                  articleViewModel:  articleViewModel,
                   pageUtil: pageUtil,
                 ),
+                const SizedBox(
+                  width: 24,
+                ),
+                CategorySelectFuture(
+                  articleViewModel:articleViewModel,
+                  pageUtil:pageUtil,
+                )
               ],
             ),
           ]),

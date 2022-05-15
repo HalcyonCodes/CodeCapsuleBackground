@@ -22,8 +22,10 @@ class CategoryCardListFuture extends StatefulWidget {
 class _CategoryCardListFutureState extends State<CategoryCardListFuture> {
   Widget refreshButton() {
     return InkWell(
+      borderRadius: BorderRadius.circular(16),
       onTap: () {
         refreshUi();
+        
       },
       child: Container(
         //padding: const EdgeInsets.only(top: 16),

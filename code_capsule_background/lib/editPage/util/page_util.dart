@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import '../model/viewModel/category.dart';
+import '../model/viewModel/Tag.dart';
 
 class EditPageUtil {
   EditPageUtil();
@@ -44,13 +46,6 @@ class EditPageUtil {
     _refreshTitleAfterPageViewLoad = i;
   }
 
-  //分类页设置选中的分类的id
-  int? _categoryId;
-  int? get categoryId => _categoryId;
-  void setCategoryId(int? i) {
-    _categoryId = i;
-  }
-
   //刷新工具栏
   Function()? _refreshTool;
   Function()? get refreshTool => _refreshTool;
@@ -68,10 +63,11 @@ class EditPageUtil {
   void addFuncListSelectCard(Function(bool)? i) {
     _funcListSetIsSelectCard.add(i);
   }
- 
+
   //所有刷新分类卡片的方法集合
   List<Function()?> _funcListRefreshCategoryCard = [];
-  List<Function()?> get funcListRefreshCategoryCard => _funcListRefreshCategoryCard;
+  List<Function()?> get funcListRefreshCategoryCard =>
+      _funcListRefreshCategoryCard;
   void setFuncListRefreshCategoryCard(List<Function()?> i) {
     _funcListRefreshCategoryCard = i;
   }
@@ -80,5 +76,43 @@ class EditPageUtil {
     _funcListRefreshCategoryCard.add(i);
   }
 
+  //不加载数据刷新选择选择列表
+  void Function()? _refreshCategorySelect;
+  void Function()? get refreshCategorySelect => _refreshCategorySelect;
+  void setRefreshCategorySelect(void Function()? i) {
+    _refreshCategorySelect = i;
+  }
 
+  //分类页设置选中的分类的id
+  Category? _selectCategory;
+  Category? get selectCategory => _selectCategory;
+  void setSelectCategory(Category? i) {
+    _selectCategory = i;
+    int a;
+  }
+
+  //分类页设置选中的分类的id
+  int? _categoryId;
+  int? get categoryId => _categoryId;
+  void setCategoryId(int? i) {
+    _categoryId = i;
+  }
+
+  Function(bool)? _setIsAdd;
+  Function(bool)? get setIsAdd => _setIsAdd;
+  void setFuncSetIsAdd(Function(bool)? i) {
+    _setIsAdd = i;
+  }
+
+  Function(bool)? _setIsEdit;
+  Function(bool)? get setIsEdit => _setIsEdit;
+  void setFuncSetIsEdit(Function(bool)? i) {
+    _setIsEdit = i;
+  }
+
+  Function(bool)? _setIsDel;
+  Function(bool)? get setIsDel => _setIsDel;
+  void setFuncSetIsDel(Function(bool)? i) {
+    _setIsDel = i;
+  }
 }

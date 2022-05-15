@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../config/index.dart';
 import './button_tool_category_tool.dart';
+import '../../util/page_util.dart';
 
 class Edit extends StatelessWidget {
+  final EditPageUtil pageUtil;
   final TextEditingController editController = TextEditingController();
 
-  Edit({Key? key}) : super(key: key);
+  Edit({Key? key, required this.pageUtil}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class Edit extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 18,
+              width: 12,
             ),
             Text(
               KString.toolEditCategoryTitle,
@@ -67,7 +69,7 @@ class Edit extends StatelessWidget {
           children: [
             Container(
               height: 26,
-              width: 396 - 18 - 12 - 12 - 18,
+              width: 396 - 12 - 12,
               alignment: Alignment.center,
               child: TextField(
                 controller: editController,
@@ -104,14 +106,24 @@ class Edit extends StatelessWidget {
         children: [
           const Expanded(child: SizedBox()),
           FunctionButton(
-              btnString: KString.toolButtonDetermineTitle, onTapFunc: () {}),
+              btnString: KString.toolButtonDetermineTitle, onTapFunc: commit),
           const SizedBox(
             width: 24,
           ),
           FunctionButton(
-              btnString: KString.toolButtonCancelTitle, onTapFunc: () {}),
+              btnString: KString.toolButtonCancelTitle, onTapFunc: cancel),
         ],
       )
     ]);
+  }
+
+  void commit() {}
+
+  void cancel() {
+      //取消
+      pageUtil.setIsAdd!(false);
+      pageUtil.setIsDel!(false);
+      pageUtil.setIsEdit!(false);
+      pageUtil.refreshTool!();
   }
 }

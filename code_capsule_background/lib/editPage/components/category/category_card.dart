@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../config/index.dart';
 import '../../util/page_util.dart';
-import '../../model/viewModel/article_viewmodel.dart';
 import '../../model/viewModel/category_viewmodel.dart';
 import '../../model/viewModel/tag_viewmodel.dart';
+import '../../model/viewModel/category.dart';
+
 
 class CategoryCard extends StatefulWidget {
   final String id;
@@ -49,11 +50,13 @@ class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: const EdgeInsets.only(bottom: 24),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: onClick,
         child: Container(
+          alignment: Alignment.center,
           height: 81,
           //width: 451 - 4,
           padding:
@@ -70,7 +73,7 @@ class _CategoryCardState extends State<CategoryCard> {
                       color: Colors.black.withOpacity(0.0),
                     )),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 height: 81 - 12 * 2,
@@ -127,6 +130,7 @@ class _CategoryCardState extends State<CategoryCard> {
         widget.pageUtil.funcListRefreshCategoryCard[i]!();
       }
       widget.pageUtil.setCategoryId(null);
+      widget.pageUtil.setSelectCategory(null);
     } else {
       for (int i = 0;
           i <= widget.pageUtil.funcListSetIsSelectCard.length - 1;
@@ -136,9 +140,15 @@ class _CategoryCardState extends State<CategoryCard> {
       }
       setIsSelect(true);
       widget.pageUtil.setCategoryId(int.tryParse(widget.id)!);
+      Category c = Category(
+        categoryId: widget.id,
+        title: widget.title,
+        count: widget.count,
+        update: widget.update,
+      );
+      widget.pageUtil.setSelectCategory(c);
     }
 
-    
     refreshUi();
   }
 }

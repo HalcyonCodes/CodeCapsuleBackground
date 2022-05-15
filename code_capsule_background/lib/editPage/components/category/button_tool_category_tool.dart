@@ -3,7 +3,7 @@ import '../../../config/index.dart';
 
 class FunctionButton extends StatelessWidget {
   final String btnString;
-  final Function() onTapFunc;
+  final void Function() onTapFunc;
   const FunctionButton({Key? key, required this.btnString, required this.onTapFunc}) : super(key: key);
 
   @override
@@ -18,6 +18,7 @@ class FunctionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: KColor.primaryColor,
           borderRadius: BorderRadius.circular(16),
+          boxShadow: [KShadow.shadow]
         ),
         child: Text(
           btnString,

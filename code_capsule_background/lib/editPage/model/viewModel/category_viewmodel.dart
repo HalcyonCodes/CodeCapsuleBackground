@@ -1,8 +1,10 @@
 import 'dart:html';
-import '../fromJsonModel/category_from_json_model.dart';
+import '../fromJsonModel/category_from_json_model.dart' as frModel;
 import 'package:dio/dio.dart';
 //import '../data/editor_page_data.dart' as tData;
 import '../data/category_data.dart' as tData;
+import './category.dart';
+import './tag.dart';
 
 class CategoryViewModel {
   late List<Category> categories;
@@ -18,7 +20,8 @@ class CategoryViewModel {
     if (response.statusCode == HttpStatus.ok) {
       var data = tData.data;
       //EditorModel fromJsonModel = EditorModel.fromJson(data);
-      CategoryModel fromJsonModel = CategoryModel.fromJson(data);
+      frModel.CategoryModel fromJsonModel =
+          frModel.CategoryModel.fromJson(data);
       categories = [];
       for (var e in fromJsonModel.data.categories) {
         Category category = Category(
@@ -34,17 +37,46 @@ class CategoryViewModel {
       throw Exception('http加载失败');
     }
   }
-}
 
-class Category {
-  late String categoryId;
-  late String title;
-  late String update;
-  late String count;
+  Future<int> addCategory(Map<String, String> data) async{
+    Response response;
+    //先添加cookie
+    //response = await Dio().post('htttp://localhost:4040/', data: data);
+    response = await Dio().get('http://localhost:4040/');
 
-  Category(
-      {required this.categoryId,
-      required this.title,
-      required this.update,
-      required this.count});
+    if (response.statusCode == HttpStatus.ok) {
+      
+      return HttpStatus.ok;
+    } else {
+      throw Exception('http加载失败');
+    }
+  }
+
+  Future<int> delCategory(String categoryId) async{
+    Response response;
+    //先添加cookie
+    //response = await Dio().post('htttp://localhost:4040/', data: data);
+    response = await Dio().get('http://localhost:4040/');
+
+    if (response.statusCode == HttpStatus.ok) {
+      
+      return HttpStatus.ok;
+    } else {
+      throw Exception('http加载失败');
+    }
+  }
+
+   Future<int> updateCategory(Map<String, String> data) async{
+    Response response;
+    //先添加cookie
+    //response = await Dio().post('htttp://localhost:4040/', data: data);
+    response = await Dio().get('http://localhost:4040/');
+
+    if (response.statusCode == HttpStatus.ok) {
+      return HttpStatus.ok;
+    } else {
+      throw Exception('http加载失败');
+    }
+  }
+
 }
