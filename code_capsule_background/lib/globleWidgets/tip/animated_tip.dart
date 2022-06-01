@@ -25,53 +25,54 @@ import '../../config/index.dart';
 
 class AnimatedTip extends StatefulWidget {
   final String tipString;
-  const AnimatedTip({Key? key, required this.tipString}) : super(key: key);
+  final AnimationController controller;
+  final Animation animation;
+  const AnimatedTip(
+      {Key? key,
+      required this.tipString,
+      required this.animation,
+      required this.controller})
+      : super(key: key);
 
   @override
   State<AnimatedTip> createState() => _AnimatedTipState();
 }
 
-class _AnimatedTipState extends State<AnimatedTip>
-    with TickerProviderStateMixin {
-  AnimationController? controller;
-  Animation<double>? animation;
-
+class _AnimatedTipState extends State<AnimatedTip> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 100));
-    animation = CurvedAnimation(parent: controller!, curve: Curves.easeInOut);
-    animation = Tween(begin: 0.0, end: 1.0).animate(controller!);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await controller!.forward();
-      await controller!.reverse();
-    });
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: MediaQuery.of(context).size.height / 2 - context.size!.height / 2,
-      left: MediaQuery.of(context).size.width / 2 - context.size!.width / 2,
-      child: Opacity(
-        opacity: 1.0 * animation!.value,
-        child: Container(
-          //padding: const EdgeInsets.only(top: 16),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: KColor.primaryColor,
-              boxShadow: [KShadow.shadow]),
-          alignment: Alignment.center,
-          height: 55,
-          width: 200,
-          child: Text(
-            widget.tipString,
-            style: KFont.refreshBtnStyle,
-          ),
-        ),
-      ),
-    );
+    return AnimatedBuilder(
+        animation: widget.animation,
+        builder: (context, child) {
+          return Positioned(
+            top: MediaQuery.of(context).size.height / 2 - 200 / 2,
+            left: MediaQuery.of(context).size.width / 2 - 200 / 2,
+            child: Opacity(
+              opacity: 1.0 * widget.animation.value,
+              child: Container(
+                //padding: const EdgeInsets.only(top: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: KColor.primaryColor,
+                    boxShadow: [KShadow.shadow]),
+                alignment: Alignment.center,
+                height: 55,
+                width: 200,
+                child: Text(
+                  widget.tipString,
+                  style: KFont.refreshBtnStyle,
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

@@ -9,13 +9,39 @@ import '../../model/viewModel/category_viewmodel.dart';
 import '../../model/viewModel/category.dart';
 import '../../../globleWidgets/tip/animated_tip.dart';
 
-class Add extends StatelessWidget {
+class Add extends StatefulWidget {
   final EditPageUtil pageUtil;
   final CategoryViewModel categoryViewModel;
-  final TextEditingController editController = TextEditingController();
 
   Add({Key? key, required this.pageUtil, required this.categoryViewModel})
       : super(key: key);
+
+  @override
+  State<Add> createState() => _AddState();
+}
+
+class _AddState extends State<Add> with TickerProviderStateMixin {
+  OverlayEntry? overlayEntry;
+  TextEditingController editController = TextEditingController();
+  AnimationController? animationController;
+  Animation<double>? animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 100));
+    //animation =
+    //  CurvedAnimation(parent: animationController!, curve: Curves.easeInOut);
+    animation = Tween(begin: 0.0, end: 1.0)
+        .chain(CurveTween(curve: Curves.easeInOut))
+        .animate(animationController!)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          // animationController!.reverse();
+        }
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,42 +154,42 @@ class Add extends StatelessWidget {
     Map<String, String> postData = {};
     postData['title'] = editController.text;
     try {
-      await categoryViewModel.addCategory(postData);
-    } catch (e) {}
+      await widget.categoryViewModel.addCategory(postData);
+      popTip('添加成功', context);
+    } catch (e) {
+      popTip('添加失败', context);
+    }
   }
 
   void cancel() {
-    pageUtil.setIsAdd!(false);
-    pageUtil.setIsEdit!(false);
-    pageUtil.setIsDel!(false);
-    pageUtil.refreshTool!();
+    widget.pageUtil.setIsAdd!(false);
+    widget.pageUtil.setIsEdit!(false);
+    widget.pageUtil.setIsDel!(false);
+    widget.pageUtil.refreshTool!();
   }
 
-  void popTip(String tipString) {
+  void popTip(String tipString, BuildContext context) async {
     //return
-    Widget overlayEntry = AnimatedTip(tipString: tipString);
+    //Widget overlayEntry = AnimatedTip(tipString: tipString);
+    if (overlayEntry == null) {
+      overlayEntry = OverlayEntry(builder: (context) {
+        return AnimatedTip(
+          tipString: tipString,
+          controller: animationController!,
+          animation: animation!,
+        );
+      });
+      Overlay.of(context)!.insert(overlayEntry!);
+      animationController!.reset();
+      await animationController!.forward();
+      await animationController!.reverse();
+      if (overlayEntry != null && animationController!.value == 0) {
+        overlayEntry!.remove();
+        overlayEntry = null;
+      }
+    } else {
+      overlayEntry!.remove();
+      overlayEntry = null;
+    }
   }
-
-  /*if (b) {
-                RenderBox rBox =
-                    gKey.currentContext!.findRenderObject() as RenderBox;
-                Offset offset = rBox.localToGlobal(Offset.zero);
-                overlayEntry = OverlayEntry(builder: (constext) {
-                  String date = year + ' 年 ' + month + ' 月 ' + day + ' 日 ';
-                  return Positioned(
-                    top: offset.dy + 7 +7,
-                    left: offset.dx + 7 + 7,
-                    child: pupContain(date, count),
-                  );
-                });
-                Overlay.of(context)!.insert(overlayEntry!);
-              }
-              if (!b) {
-                if (overlayEntry != null) {
-                  overlayEntry!.remove();
-                  //overlayEntry!.dispose();
-                  overlayEntry = null;
-                }
-              }*/
-
 }

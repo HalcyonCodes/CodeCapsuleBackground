@@ -56,7 +56,7 @@ class _CategoryToolState extends State<CategoryTool> {
     super.initState();
     //selectCategoryId = widget.pageUtil.categoryId;
     setSelectCategoryId(widget.pageUtil.categoryId);
-    
+
     widget.pageUtil.setFuncSetIsAdd(setIsAdd);
     widget.pageUtil.setFuncSetIsDel(setIsDel);
     widget.pageUtil.setFuncSetIsEdit(setIsEdit);
@@ -235,6 +235,7 @@ class _CategoryToolState extends State<CategoryTool> {
               : isAdd
                   ? Add(
                       pageUtil: widget.pageUtil,
+                      categoryViewModel: widget.categoryViewModel,
                     )
                   : isDel
                       ? Delect(

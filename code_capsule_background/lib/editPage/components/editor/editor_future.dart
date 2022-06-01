@@ -15,7 +15,8 @@ class EditorFuture extends StatefulWidget {
   State<EditorFuture> createState() => _EditorFutureState();
 }
 
-class _EditorFutureState extends State<EditorFuture> {
+class _EditorFutureState extends State<EditorFuture> with AutomaticKeepAliveClientMixin{
+
   Widget refreshButton() {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
@@ -41,6 +42,7 @@ class _EditorFutureState extends State<EditorFuture> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder<int>(
         future: widget.articleViewModel.refresh(),
         builder: (context, snapshot) {
@@ -92,4 +94,7 @@ class _EditorFutureState extends State<EditorFuture> {
   void refreshUi() {
     setState(() {});
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }

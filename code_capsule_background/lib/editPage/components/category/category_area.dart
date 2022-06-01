@@ -6,7 +6,9 @@ import '../../model/viewModel/category_viewmodel.dart';
 import '../../model/viewModel/article_viewmodel.dart';
 import './category_select_future.dart';
 
-class CategoryArea extends StatelessWidget {
+
+
+class CategoryArea extends StatefulWidget {
   final CategoryViewModel categoryViewModel;
   final ArticleViewModel articleViewModel;
   final EditPageUtil pageUtil;
@@ -15,7 +17,21 @@ class CategoryArea extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CategoryArea> createState() => _CategoryAreaState();
+}
+
+class _CategoryAreaState extends State<CategoryArea> with AutomaticKeepAliveClientMixin{
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+
+ @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SizedBox(
       width: 1920 - 24 - 112 - 24 - 24,
       height: MediaQuery.of(context).size.height - 24 - 55 - 24,
@@ -28,25 +44,29 @@ class CategoryArea extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CategoryCardListFuture(
-                    categoryViewModel: categoryViewModel, pageUtil: pageUtil),
+                    categoryViewModel: widget.categoryViewModel, pageUtil: widget.pageUtil),
                 const SizedBox(
                   width: 24,
                 ),
                 CategoryTool(
-                  categoryViewModel: categoryViewModel,
-                  articleViewModel:  articleViewModel,
-                  pageUtil: pageUtil,
+                  categoryViewModel: widget.categoryViewModel,
+                  articleViewModel:  widget.articleViewModel,
+                  pageUtil: widget.pageUtil,
                 ),
                 const SizedBox(
                   width: 24,
                 ),
                 CategorySelectFuture(
-                  articleViewModel:articleViewModel,
-                  pageUtil:pageUtil,
+                  articleViewModel:widget.articleViewModel,
+                  pageUtil:widget.pageUtil,
                 )
               ],
             ),
           ]),
     );
   }
+  
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
